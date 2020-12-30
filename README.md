@@ -64,4 +64,27 @@ symfony console make:controller
 
 # Debug routes
 symfony console debug:router
+
+```
+
+BACKOFFICE : EasyAdmin
+```markdown
+composer require easycorp/easyadmin-bundle
+
+CREATE DASHBOARD
+symfony console make:admin:dashboard
+symfony console make:admin:crud
+
+CREATE ENTITY CATEGORY
+symfony console make:entity Category
+symfony console make:migration
+symfony console doctrine:migrations:migrate
+
+symfony console make:admin:crud
+
+
+CREATE ENTITY PRODUCT
+symfony console make:entity Product
+symfony console make:migration
+symfony console doctrine:migrations:migrate
 ```
