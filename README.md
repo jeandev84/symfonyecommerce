@@ -32,4 +32,27 @@ Phase 4: Creation d' un espace prive (membre)
 2. symfony console doctrine:database:create
 3. symfony console make:migration
 4. symfony console doctrine:migrations:migrate
+
+
+# Make form
+symfony console make:form
+config/packages/twig.yaml
+twig:
+ default_path: '%kernel.project_dir%/templates'
+ form_themes: ['bootstrap_4_layout.html.twig']
+
+# Make Entity (mise ajour de l'entite User)
+symfony console make:entity User
+
+config/packages/translation.yaml
+framework:
+    default_locale: fr # langue locale par default
+    translator:
+      default_path: '%kernel.project_dir%/translations'
+      fallbacks:
+        - en
+
+
+# Make Guard Authentificator
+
 ```
