@@ -48,18 +48,19 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
     /**
      * @param $event
+     * @param $entityName
     */
-    public function uploadIllustration($event)
+    public function uploadIllustration($event, $entityName)
     {
         $entity = $event->getEntityInstance();
 
         // dd($entity);
 
         // $tmpName = $entity->getIllustration();
-        $tmpName = $_FILES['Product']['tmp_name']['illustration']['file'];
+        $tmpName = $_FILES[$entityName]['tmp_name']['illustration']['file'];
 
         /* dd($_FILES['Product']['name']['illustration']['file']); */
-        $extension = pathinfo($_FILES['Product']['name']['illustration']['file'], PATHINFO_EXTENSION);
+        $extension = pathinfo($_FILES[$entityName]['name']['illustration']['file'], PATHINFO_EXTENSION);
         $filename = uniqid();
 
         /*   dump($tmpName); dd($extension); */
