@@ -54,5 +54,14 @@ framework:
 
 
 # Make Guard Authentificator
+symfony console make:auth
+email: john@doe.com
+password: qwerty
 
+
+# Make Account Controller for users management account
+symfony console make:controller
+
+# Debug routes
+symfony console debug:router
 ```
