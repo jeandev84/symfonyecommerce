@@ -24,10 +24,12 @@ class ProductCrudController extends AbstractCrudController
 
         return [
            TextField::new('name'),
-           // le slug sera generer en fonction du nom du produit
            SlugField::new('slug')->setTargetFieldName('name'),
-           // ImageField::new('illustration')->setBasePath('uploads/'),
-           ImageField::new('illustration')->setUploadDir('public/uploads/')->setFormTypeOptions(['mapped' => false, 'required' => false]),
+           ImageField::new('illustration')
+                  ->setBasePath('uploads/')
+                  ->setUploadDir('public/uploads/')
+                  ->setUploadedFileNamePattern('[randomhash].[extension]')
+                  ->setRequired(false),
            TextField::new('subtitle'),
            TextareaField::new('description'),
            MoneyField::new('price')->setCurrency('EUR'),
