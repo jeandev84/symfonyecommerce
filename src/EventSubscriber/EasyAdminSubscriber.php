@@ -13,21 +13,21 @@ use Symfony\Component\HttpKernel\KernelInterface;
  * Class EasyAdminSubscriber
  *
  * @package App\EventSubscriber
-*/
+ */
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
 
 
     /**
      * @var KernelInterface
-    */
+     */
     private $appKernel;
 
 
     /**
      * EasyAdminSubscriber constructor.
      * @param KernelInterface $appKernel
-    */
+     */
     public function __construct(KernelInterface $appKernel)
     {
         $this->appKernel = $appKernel;
@@ -37,11 +37,11 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-           // evenement avant que l'entite soit creer
-           // On dit avant qu'une entite produit soit creer ou persistee en base,
-           // je veux que tu fasse appelle a setIllustration
-           BeforeEntityPersistedEvent::class => ['setIllustration'],
-           BeforeEntityUpdatedEvent::class => ['updateIllustration']
+            // evenement avant que l'entite soit creer
+            // On dit avant qu'une entite produit soit creer ou persistee en base,
+            // je veux que tu fasse appelle a setIllustration
+            BeforeEntityPersistedEvent::class => ['setIllustration'],
+            BeforeEntityUpdatedEvent::class => ['updateIllustration']
         ];
     }
 
@@ -49,7 +49,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     /**
      * @param $event
      * @param $entityName
-    */
+     */
     public function uploadIllustration($event, $entityName)
     {
         $entity = $event->getEntityInstance();
@@ -86,18 +86,20 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
 
+        $reflection = new \ReflectionClass($event->getEntityInstance());
+        $entityName = $reflection->getShortName();
 
         // On verifit si mon utilisateur a envoye une nouvelle image
         if($_FILES['Product']['tmp_name']['illustration']['file'] != '')
         {
-             $this->uploadIllustration($event);
+            $this->uploadIllustration($event, $entityName);
         }
     }
 
 
     /**
      * @param BeforeEntityPersistedEvent $event
-    */
+     */
     public function setIllustration(BeforeEntityPersistedEvent $event)
     {
         // on verifie si l'entite est une instance de Product
@@ -106,7 +108,10 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->uploadIllustration($event);
+        $reflection = new \ReflectionClass($event->getEntityInstance());
+        $entityName = $reflection->getShortName();
+
+        $this->uploadIllustration($event, $entityName);
     }
 
 }
