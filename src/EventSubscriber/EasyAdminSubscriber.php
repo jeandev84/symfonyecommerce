@@ -2,7 +2,9 @@
 namespace App\EventSubscriber;
 
 
+use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -39,31 +41,71 @@ class EasyAdminSubscriber implements EventSubscriberInterface
            // On dit avant qu'une entite produit soit creer ou persistee en base,
            // je veux que tu fasse appelle a setIllustration
            BeforeEntityPersistedEvent::class => ['setIllustration'],
+           BeforeEntityUpdatedEvent::class => ['updateIllustration']
         ];
     }
 
 
+    /**
+     * @param $event
+    */
+    public function uploadIllustration($event)
+    {
+        $entity = $event->getEntityInstance();
+
+        // dd($entity);
+
+        // $tmpName = $entity->getIllustration();
+        $tmpName = $_FILES['Product']['tmp_name']['illustration']['file'];
+
+        /* dd($_FILES['Product']['name']['illustration']['file']); */
+        $extension = pathinfo($_FILES['Product']['name']['illustration']['file'], PATHINFO_EXTENSION);
+        $filename = uniqid();
+
+        /*   dump($tmpName); dd($extension); */
+
+        $project_dir = $this->appKernel->getProjectDir();
+
+        move_uploaded_file($tmpName, $project_dir . '/public/uploads/'. $filename .'.'. $extension);
+
+        /* dump($entity); */
+
+        $entity->setIllustration($filename. '.'. $extension);
+    }
+
+
+    /**
+     * @param BeforeEntityUpdatedEvent $event
+     */
+    public function updateIllustration(BeforeEntityUpdatedEvent $event)
+    {
+        // on verifie si l'entite est une instance de Product
+        if(! ($event->getEntityInstance() instanceof Product))
+        {
+            return;
+        }
+
+
+        // On verifit si mon utilisateur a envoye une nouvelle image
+        if($_FILES['Product']['tmp_name']['illustration']['file'] != '')
+        {
+             $this->uploadIllustration($event);
+        }
+    }
+
+
+    /**
+     * @param BeforeEntityPersistedEvent $event
+    */
     public function setIllustration(BeforeEntityPersistedEvent $event)
     {
-          $entity = $event->getEntityInstance();
+        // on verifie si l'entite est une instance de Product
+        if(! ($event->getEntityInstance() instanceof Product))
+        {
+            return;
+        }
 
-          // dd($entity);
-
-          // $tmpName = $entity->getIllustration();
-
-          /* dd($_FILES['Product']['name']['illustration']['file']); */
-          $extension = pathinfo($_FILES['Product']['name']['illustration']['file'], PATHINFO_EXTENSION);
-          $filename = uniqid();
-          $tmpName = $_FILES['Product']['tmp_name']['illustration']['file'];
-
-          /*   dump($tmpName); dd($extension); */
-
-          $project_dir = $this->appKernel->getProjectDir();
-
-          move_uploaded_file($tmpName, $project_dir . '/public/uploads/'. $filename .'.'. $extension);
-
-          /* dump($entity); */
-
-         $entity->setIllustration($filename. '.'. $extension);
+        $this->uploadIllustration($event);
     }
+
 }
