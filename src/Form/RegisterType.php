@@ -64,9 +64,6 @@ class RegisterType extends AbstractType
                     'attr'  => [
                         'placeholder' => 'Merci de confirmer votre mot password'
                     ]
-                ],
-                'attr'  => [
-                    'placeholder' => 'Merci de saisir votre password'
                 ]
             ])
             ->add('submit', SubmitType::class, [
