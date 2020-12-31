@@ -87,4 +87,9 @@ CREATE ENTITY PRODUCT
 symfony console make:entity Product
 symfony console make:migration
 symfony console doctrine:migrations:migrate
+
+=============================
+ICONS:
+https://flaticon.com
+https://www.flaticon.com/search?word=plus&k=1609384768215
 ```

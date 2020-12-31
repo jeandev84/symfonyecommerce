@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use App\Service\Cart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,28 @@ class CartController extends AbstractController
 
     /**
      * @Route("/cart", name="cart")
-    */
-    public function index(Cart $cart): Response
+     * @param ProductRepository $productRepository
+     * @param Cart $cart
+     * @return Response
+     */
+    public function index(Cart $cart, ProductRepository $productRepository): Response
     {
-        dd($cart->get());
-        return $this->render('cart/index.html.twig');
+        $cartComplete = [];
+
+        if($items = $cart->get())
+        {
+            foreach ($items as $id => $quantity)
+            {
+                $cartComplete[] = [
+                    'product' => $productRepository->findOneById($id),
+                    'quantity' => $quantity
+                ];
+            }
+        }
+
+        return $this->render('cart/index.html.twig', [
+            'cart' => $cartComplete
+        ]);
     }
 
 
@@ -44,5 +62,31 @@ class CartController extends AbstractController
         $cart->remove();
 
         return $this->redirectToRoute('products');
+    }
+
+
+    /**
+     * @Route("/cart/delete/{id}", name="delete_to_cart")
+     * @param Cart $cart
+     * @return Response
+    */
+    public function delete(Cart $cart, $id): Response
+    {
+        $cart->delete($id);
+
+        return $this->redirectToRoute('cart');
+    }
+
+
+    /**
+     * @Route("/cart/decrease/{id}", name="decrease_to_cart")
+     * @param Cart $cart
+     * @return Response
+     */
+    public function decrease(Cart $cart, $id): Response
+    {
+        $cart->decrease($id);
+
+        return $this->redirectToRoute('cart');
     }
 }

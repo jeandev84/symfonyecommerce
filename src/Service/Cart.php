@@ -78,4 +78,43 @@ class Cart
     {
         return $this->session->remove('cart');
     }
+
+
+    /**
+     * Remove item from cart
+     *
+     * @param $id
+     * @return mixed
+    */
+    public function delete($id)
+    {
+        $cart = $this->session->get('cart', []);
+
+        unset($cart[$id]);
+
+        return $this->session->set('cart', $cart);
+    }
+
+
+    /**
+     * @param $id
+    */
+    public function decrease($id)
+    {
+        $cart = $this->session->get('cart', []);
+
+        // verifier si la quantite de mon produit n'est pas egale a 1
+        if($cart[$id] > 1)
+        {
+            // retirer une quantite (-1)
+            $cart[$id]--;
+
+        }else{
+
+            // supprimer mon produit
+            unset($cart[$id]);
+        }
+
+        return $this->session->set('cart', $cart);
+    }
 }
