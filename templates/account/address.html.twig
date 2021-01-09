@@ -3,7 +3,7 @@
 {% block title %}Mes adresses - La Boutique Francaise{% endblock %}
 
 {% block content %}
- <a href="" class="btn btn-info btn-sm float-right">Ajouter une adresse</a>
+ <a href="{{ path('account_address_add') }}" class="btn btn-info btn-sm float-right">Ajouter une adresse</a>
  <h1>Mes adresses</h1>
  C'est dans cet espace que vous allez pouvoir gerer toutes vos adresses.
  <br>
@@ -16,7 +16,25 @@
      Pour en ajouter une, veuillez <a href="">cliquer ici</a>
    </p>
  {% else %}
-     AFFICHER DES ADRESSES
+     <div class="row">
+         {% for address in app.user.addresses %}
+             <div class="col-md-4">
+                 <div class="card" style="width: 18rem;">
+                     <div class="card-body">
+                         <h5 class="card-title">
+                             {{ address.name }}
+                         </h5>
+                         <p class="card-text">
+                             {{ address.address }} <br>
+                             {{ address.postal }} - {{ address.city }} - {{ address.country }}
+                         </p>
+                         <a href="{{ path('account_address_edit', {'id': address.id}) }}" class="">Modifier</a> |
+                         <a href="#" class="">Supprimer</a>
+                     </div>
+                 </div>
+             </div>
+         {% endfor %}
+     </div>
  {% endif %}
 {% endblock %}
 
