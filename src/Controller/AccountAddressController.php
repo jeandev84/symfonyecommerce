@@ -113,4 +113,24 @@ class AccountAddressController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/compte/supprimer-une-adresse/{id}", name="account_address_delete")
+     * @param $id
+     * @return Response
+     */
+    public function delete($id): Response
+    {
+        $address = $this->em->getRepository(Address::class)
+                            ->findOneById($id);
+
+        if($address && $address->getUser() == $this->getUser())
+        {
+            $this->em->remove($address);
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('account_address');
+    }
+
 }
