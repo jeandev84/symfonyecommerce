@@ -96,4 +96,23 @@ https://www.flaticon.com/search?word=plus&k=1609384768215
 # Make entity Address
 symfony console make:entity Address
 symfony console make:controller
+
+
+# Make entity Carrier (Transport courriel DHL,COLISSIMO ...)
+symfony console make:entity Carrier
+symfony console make:migration
+symfony console doctrine:migrations:migrate (d:m:m)
+
+
+# Make entity Order (Entity pour la gestion de mes Commandes)
+On va lier une Commande a un utilisateur
+symfony console make:entity Order
+symfony console make:migration
+symfony console doctrine:migrations:migrate (d:m:m)
+
+
+# Make entity OrderDetails  (Stock les details de la commande)
+symfony console make:entity OrderDetails
+symfony console make:migration
+symfony console doctrine:migrations:migrate (d:m:m)
 ```
