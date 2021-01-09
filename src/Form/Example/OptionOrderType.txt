@@ -1,0 +1,55 @@
+   /*
+DEBUG OPTIONS:
+OrderType.php on line 15:
+array:49 [▼
+  "block_name" => null
+  "disabled" => false
+  "label" => null
+  "label_format" => null
+  "label_translation_parameters" => []
+  "attr_translation_parameters" => []
+  "translation_domain" => null
+  "auto_initialize" => true
+  "trim" => true
+  "required" => true
+  "property_path" => null
+  "mapped" => true
+  "by_reference" => true
+  "inherit_data" => false
+  "compound" => true
+  "method" => "POST"
+  "post_max_size_message" => "The uploaded file was too large. Please try to upload a smaller file."
+  "allow_file_upload" => false
+  "help_translation_parameters" => []
+  "invalid_message" => "This value is not valid."
+  "invalid_message_parameters" => []
+  "error_mapping" => []
+  "allow_extra_fields" => false
+  "extra_fields_message" => "This form should not contain extra fields."
+  "csrf_protection" => true
+  "csrf_field_name" => "_token"
+  "csrf_message" => "The CSRF token is invalid. Please try to resubmit the form."
+  "csrf_token_manager" => Symfony\Component\Security\Csrf\CsrfTokenManager {#346 ▶}
+  "csrf_token_id" => null
+  "block_prefix" => null
+  "row_attr" => []
+  "label_html" => false
+  "attr" => []
+  "data_class" => null
+  "empty_data" => Closure(FormInterface $form) {#1108 ▶}
+  "error_bubbling" => true
+  "label_attr" => []
+  "action" => ""
+  "upload_max_size_message" => Closure() {#1110 ▶}
+  "help" => null
+  "help_attr" => []
+  "help_html" => false
+  "is_empty_callback" => null
+  "getter" => null
+  "setter" => null
+  "validation_groups" => null
+  "constraints" => []
+  "legacy_error_messages" => true
+  "user" => App\Entity\User {#808 ▶}
+]
+*/

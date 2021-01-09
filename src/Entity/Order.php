@@ -51,6 +51,7 @@ class Order
      */
     private $orderDetails;
 
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
