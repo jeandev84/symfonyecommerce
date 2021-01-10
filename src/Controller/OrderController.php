@@ -128,6 +128,8 @@ class OrderController extends AbstractController
             // Enregistrer ma commande Order()
             $order = new Order();
 
+            $reference = $date->format('dmY').'-'. uniqid();
+            $order->setReference($reference);
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
             $order->setCarrierName($carrier->getName());
@@ -155,10 +157,15 @@ class OrderController extends AbstractController
                  $this->em->persist($orderDetails);
             }
 
+            /* dump($order); */
+
+            $this->em->flush();
+
             return $this->render('order/add.html.twig', [
                 'cart' => $cart->getFullItems(),
                 'carrier' => $carrier,
-                'delivery' => $deliveryContent
+                'delivery' => $deliveryContent,
+                'reference' => $order->getReference()
             ]);
         }
 
