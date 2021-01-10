@@ -69,7 +69,7 @@ class OrderController extends AbstractController
 
 
     /**
-     * @Route("/commande/recapitulatif", name="order_recap")
+     * @Route("/commande/recapitulatif", name="order_recap", methods={"POST"})
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -85,6 +85,9 @@ class OrderController extends AbstractController
 
 
         $form->handleRequest($request);
+
+        // $deliveryContent = '';
+        // $carrier = null;
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -148,10 +151,14 @@ class OrderController extends AbstractController
 
 
             // $this->em->flush();
+
+            return $this->render('order/add.html.twig', [
+                'cart' => $cart->getFullItems(),
+                'carrier' => $carrier,
+                'delivery' => $deliveryContent
+            ]);
         }
 
-        return $this->render('order/add.html.twig', [
-            'cart' => $cart->getFullItems()
-        ]);
+        return $this->redirectToRoute('cart');
     }
 }

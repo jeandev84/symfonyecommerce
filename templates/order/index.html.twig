@@ -12,7 +12,8 @@
         <div class="col-md-6">
             {% set formHtml %}
                 {{ form_start(order_form, {action: path('order_recap')}) }}
-
+                   {{ form_label(order_form.addresses, 'Choisissez votre adresse de livraison') }}
+                   <a href="{{ path('account_address_add') }}">Ajouter une nouvelle adresse</a>
                 {{ form_end(order_form) }}
             {% endset %}
 
