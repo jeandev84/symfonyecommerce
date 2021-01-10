@@ -137,4 +137,12 @@ https://stripe.com/docs/checkout/integration-builder
 
 1. Install Stripe
 composer require stripe/stripe-php
+
+
+CARD TEST
+NUMBER CARD TEST : 4242 4242 4242 4242
+Date Expired 12/33  CODE CVV/CVC 631
+
+DASHBOARD/PAYMENTS
+https://dashboard.stripe.com/test/payments?status%5B%5D=successful
 ```
