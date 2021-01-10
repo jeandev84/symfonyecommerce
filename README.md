@@ -115,4 +115,26 @@ symfony console doctrine:migrations:migrate (d:m:m)
 symfony console make:entity OrderDetails
 symfony console make:migration
 symfony console doctrine:migrations:migrate (d:m:m)
+
+# PAIEMENT STRIPE
+https://stripe.com/
+Francais: https://stripe.com/fr
+
+https://stripe.com/fr/payments/checkout
+
+Essayer:
+https://checkout.stripe.dev/
+One-time payments (cas d' une boutique en ligne)
+https://checkout.stripe.dev/preview
+
+TESTS CARD
+https://stripe.com/docs/
+https://stripe.com/docs/payments/checkout
+https://dashboard.stripe.com/test/apikeys
+
+FOR WORKING WITH API
+https://stripe.com/docs/checkout/integration-builder
+
+1. Install Stripe
+composer require stripe/stripe-php
 ```

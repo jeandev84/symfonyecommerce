@@ -10,11 +10,20 @@ use App\Entity\Product;
 use App\Form\OrderType;
 use App\Service\Cart;
 use Doctrine\ORM\EntityManagerInterface;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * Class OrderController
+ * @package App\Controller
+ *
+ * https://stripe.com/docs/checkout/integration-builder
+*/
 class OrderController extends AbstractController
 {
 
@@ -73,7 +82,8 @@ class OrderController extends AbstractController
      * @param Cart $cart
      * @param Request $request
      * @return Response
-    */
+     * @throws \Stripe\Exception\ApiErrorException
+     */
     public function add(Cart $cart, Request $request): Response
     {
         $form = $this->createForm(OrderType::class, null, [
@@ -130,6 +140,10 @@ class OrderController extends AbstractController
             $this->em->persist($order);
 
 
+            // Stripe line items
+            $productForStripe = [];
+            $YOUR_DOMAIN = 'http://localhost:8000';
+
             // Enregistrer mes produits OrderDetails()
             foreach ($cart->getFullItems() as $item)
             {
@@ -147,18 +161,86 @@ class OrderController extends AbstractController
                  $orderDetails->setTotal($product->getPrice() * $quantity);
 
                  $this->em->persist($orderDetails);
+
+                 // stripe items build
+                 $productForStripe[] = [
+                     'price_data' => [
+                         'currency' => 'eur',
+                         'unit_amount' => $product->getPrice(),
+                         'product_data' => [
+                             'name' => $product->getName(),
+                             'images' => [$YOUR_DOMAIN."/uploads/". $product->getIllustration()],
+                         ],
+                     ],
+                     'quantity' => $quantity,
+                 ];
             }
 
+            /* dd($productForStripe); */
 
             // $this->em->flush();
+
+
+            // Tester l' API STRIPE
+            Stripe::setApiKey('sk_test_D9sGXxNpdGTAFO5J0FI20GZe');
+
+            $checkoutSession = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [$productForStripe],
+                'mode' => 'payment',
+                'success_url' => $YOUR_DOMAIN . '/success.html',
+                'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+            ]);
+
+
+            /*
+            dump($checkoutSession->id);
+            dd($checkoutSession);
+            */
+
 
             return $this->render('order/add.html.twig', [
                 'cart' => $cart->getFullItems(),
                 'carrier' => $carrier,
-                'delivery' => $deliveryContent
+                'delivery' => $deliveryContent,
+                'stripeCheckoutSession' => $checkoutSession->id
             ]);
         }
 
         return $this->redirectToRoute('cart');
+    }
+
+
+    /**
+     * @throws \Stripe\Exception\ApiErrorException
+    */
+    public function testStripe()
+    {
+        // Tester l' API STRIPE
+        Stripe::setApiKey('sk_test_D9sGXxNpdGTAFO5J0FI20GZe');
+
+        $YOUR_DOMAIN = 'http://localhost:8000';
+
+        $checkout_session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'usd',
+                    'unit_amount' => 2000,
+                    'product_data' => [
+                        'name' => 'Stubborn Attachments',
+                        'images' => ["https://i.imgur.com/EHyR2nP.png"],
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $YOUR_DOMAIN . '/success.html',
+            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+        ]);
+
+
+        dump($checkout_session->id);
+        dd($checkout_session);
     }
 }
