@@ -13,7 +13,6 @@ class CartController extends AbstractController
 
     /**
      * @Route("/cart", name="cart")
-     * @param ProductRepository $productRepository
      * @param Cart $cart
      * @return Response
      */

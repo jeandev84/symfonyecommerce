@@ -36,4 +36,22 @@ class ProductCrudController extends AbstractCrudController
            AssociationField::new('category')
         ];
     }
+
+
+    public function configureFieldsOld(string $pageName): iterable
+    {
+        // On indique les types d'inputs qu'on veut afficher et leur format
+
+        return [
+            TextField::new('name'),
+            SlugField::new('slug')->setTargetFieldName('name'),
+            ImageField::new('illustration')
+                ->setBasePath('uploads/')
+                ->setFormTypeOptions(['mapped' => false, 'required' => false]),
+            TextField::new('subtitle'),
+            TextareaField::new('description'),
+            MoneyField::new('price')->setCurrency('EUR'),
+            AssociationField::new('category')
+        ];
+    }
 }

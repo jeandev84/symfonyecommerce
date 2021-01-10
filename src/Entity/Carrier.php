@@ -37,7 +37,7 @@ class Carrier
     {
         return $this->getName() .'[br]'.
                $this->getDescription().'[br]'.
-               number_format($this->getPrice(), 2, ',', ',').' €';
+               number_format(($this->getPrice() / 100), 2, ',', ',').' €';
     }
 
     public function getId(): ?int

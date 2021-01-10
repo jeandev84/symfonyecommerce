@@ -146,3 +146,9 @@ Date Expired 12/33  CODE CVV/CVC 631
 DASHBOARD/PAYMENTS
 https://dashboard.stripe.com/test/payments?status%5B%5D=successful
 ```
+
+ADMIN
+```markdown
+LOGIN: john@doe.com
+PASS: qwerty
+```
