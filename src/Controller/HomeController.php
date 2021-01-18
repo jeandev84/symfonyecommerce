@@ -20,15 +20,6 @@ class HomeController extends AbstractController
     */
     public function index(): Response
     {
-
-        $mail = new Mail();
-        $mail->send(
-            'jeanyao@ymail.com',
-             'John Doe',
-            'Mon premier mail',
-            "Bonjour John, j'espere que tu vas bien"
-        );
-
         return $this->render('home/index.html.twig');
     }
 
@@ -56,5 +47,20 @@ class HomeController extends AbstractController
 
         dd($cart);
         return $this->render('home/index.html.twig');
+    }
+
+
+    /**
+     * Send Mail test
+    */
+    public function sendMail()
+    {
+        $mail = new Mail();
+        $mail->send(
+            'jeanyao@ymail.com',
+            'John Doe',
+            'Mon premier mail',
+            "Bonjour John, j'espere que tu vas bien"
+        );
     }
 }

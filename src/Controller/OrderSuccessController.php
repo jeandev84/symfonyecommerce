@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Service\Cart;
+use App\Service\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +63,16 @@ class OrderSuccessController extends AbstractController
             $this->em->flush();
 
             // Envoyer un email a notre client pour lui confirmer sa commande
+            $mail = new Mail();
+
+            $content =  "Bonjour ". $order->getUser()->getFirstname() ."<br>";
+            $content .= "Merci pour votre commande.";
+            $mail->send(
+                $order->getUser()->getEmail(),
+                $order->getUser()->getFirstname(),
+                'Votre commande la Boutique Francaise est bien validee.',
+                $content
+            );
         }
 
         // Afficher les quelques informations de la commande de l' utilisateur
