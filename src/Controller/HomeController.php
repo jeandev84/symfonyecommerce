@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Service\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -19,6 +20,15 @@ class HomeController extends AbstractController
     */
     public function index(): Response
     {
+
+        $mail = new Mail();
+        $mail->send(
+            'jeanyao@ymail.com',
+             'John Doe',
+            'Mon premier mail',
+            "Bonjour John, j'espere que tu vas bien"
+        );
+
         return $this->render('home/index.html.twig');
     }
 

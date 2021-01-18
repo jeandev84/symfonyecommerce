@@ -152,3 +152,17 @@ ADMIN
 LOGIN: john@doe.com
 PASS: qwerty
 ```
+
+SYSTEM MAIL (Notification)
+```markdown
+Service Symfony Component
+https://symfony.com/doc/current/email.html
+
+Service Mailjet
+https://fr.mailjet.com/
+
+CHOICE PHP
+https://app.mailjet.com/auth/get_started/developer
+
+https://app.mailjet.com/account/api_keys
+```
