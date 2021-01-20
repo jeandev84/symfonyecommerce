@@ -14,6 +14,7 @@ symfony new ecommerce --full
 
 #Lunch Server
 symfony serve
+symfony server:start (Question answer Yes/NO) ? n  (Enter)
 symfony serve -d (pour ne pas afficher les logs et continuer a lancer les autres commandes)
 symfony server:log (pour afficher les logs du server)
 
