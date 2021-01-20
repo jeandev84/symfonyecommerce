@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Header;
 use App\Entity\Product;
 use App\Service\Mail;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,12 +42,19 @@ class HomeController extends AbstractController
     */
     public function index(): Response
     {
+        ini_set('upload_max_filesize', '20M');
+        ini_set('max_file_uploads', '20M');
+
         // Mettre les produits a la une
         $products = $this->em->getRepository(Product::class)
                              ->findByIsBest(1);
 
+        $headers = $this->em->getRepository(Header::class)
+                            ->findAll();
+
         return $this->render('home/index.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'headers'  => $headers
         ]);
     }
 

@@ -167,3 +167,14 @@ https://app.mailjet.com/auth/get_started/developer
 
 https://app.mailjet.com/account/api_keys
 ```
+
+PEXELS PHOTOS
+```markdown 
+https://www.pexels.com/ru-ru/
+https://pexels.com/fr-fr/photo/citadin-diversite-espace-exterieur-exterieur-1154861/
+https://pexels.com/fr-fr/photo/acheter-beau-beaute-bijoux-994234/
+https://www.pexels.com/fr-fr/photo/photo-de-femme-portant-des-lunettes-de-soleil-994234/
+https://www.pexels.com/fr-fr/photo/gros-plan-de-rangee-325876/
+
+https://pexels.com/fr-fr/photo/a-l-interieur-bourse-brouiller-costumes-326876/
+```
