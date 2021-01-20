@@ -135,7 +135,9 @@ class OrderController extends AbstractController
             $order->setCarrierName($carrier->getName());
             $order->setCarrierPrice($carrier->getPrice());
             $order->setDelivery($deliveryContent);
-            $order->setIsPaid(0); // 0 or false
+            $order->setState(0); // 0 : commande non validee
+
+
             $this->em->persist($order);
 
             // Enregistrer mes produits OrderDetails()

@@ -53,13 +53,14 @@ class OrderSuccessController extends AbstractController
         }
 
         // si la commande n'a pas ete payee
-        if(! $order->getIsPaid())
+        if($order->getState() == 0)
         {
             // Vider la session cart
             $cart->remove();
 
             // Modifier le status isPaid de notre commande (Order)
-            $order->setIsPaid(1);
+            $order->setState(1); // 1 : commande payee
+
             $this->em->flush();
 
             // Envoyer un email a notre client pour lui confirmer sa commande
