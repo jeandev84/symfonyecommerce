@@ -88,6 +88,11 @@ class ProductController extends AbstractController
                         ->getRepository(Product::class)
                         ->findOneBySlug($slug);
 
+
+        // Afficher les produits a la une
+        $products = $this->entityManager->getRepository(Product::class)
+                         ->findByIsBest(1);
+
         // Si product n'a pas ete trouve
         // alors on redirige vers la liste des products
         if(! $product)
@@ -96,7 +101,8 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'products' => $products
         ]);
     }
 
@@ -106,7 +112,7 @@ class ProductController extends AbstractController
 //     * @param Product $product
 //     * @return Response
 //    */
-//    public function show(Product $product): Response
+//    public function showDemo(Product $product): Response
 //    {
 //        return $this->render('product/index.html.twig', [
 //            'product' => $product
