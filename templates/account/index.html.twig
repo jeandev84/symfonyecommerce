@@ -4,19 +4,49 @@
 
 {% block content %}
     <h1>Mon compte</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <small>
+            <a href="/admin">Vous etes un administrateur, acceder au backoffice ?</a>
+        </small>
+    {% endif %}
     Bienvenue {{ app.user.firstname }} dans votre compte.<br>
     C'est dans cet espace que vous allez pouvoir gerer toutes vos informations personnelles.
     <hr>
-    {% if is_granted('ROLE_ADMIN') %}
-        - <a href="/admin">Vous etes un administrateur, acceder au backoffice ?</a><br>
-    {% endif %}
-    - <a href="{{ path('account_password') }}">Modifier mon mot de passe</a><br>
-    - <a href="{{ path('account_address') }}">Gerer mes adresses</a><br>
-    - <a href="{{ path('account_order') }}">Mes commandes</a><br>
-    <hr>
-
-    {# {{ dump(app) }}#}
-    {# {{ dump(app.user) }}#}
-    {# {{ dump(app.user.firstname) }}#}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="account-item text-center">
+                <div>
+                    <img src="{{ asset('assets/img/password.png') }}" alt="Modifier mon mot de passe">
+                </div>
+                <a href="{{ path('account_password') }}">
+                    Modifier mon mot de passe
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="account-item text-center">
+                <div>
+                    <img src="{{ asset('assets/img/address-book.png') }}" alt="Gerer mes adresses">
+                </div>
+                <a href="{{ path('account_address') }}">
+                    Gerer mes adresses
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="account-item text-center">
+                <div>
+                    <img src="{{ asset('assets/img/purchase.png') }}" alt="Mes commandes">
+                </div>
+                <a href="{{ path('account_order') }}">
+                    Mes commandes
+                </a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
+
+{# {{ dump(app) }}#}
+{# {{ dump(app.user) }}#}
+{# {{ dump(app.user.firstname) }}#}
