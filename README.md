@@ -186,4 +186,6 @@ composer require symfony/twig-pack
 /templates/bundles/TwigBundle/Exception/error.html.twig
 
 symfony console cache:clear
+
+https://symfony.com/doc/current/deployment.html
 ```
