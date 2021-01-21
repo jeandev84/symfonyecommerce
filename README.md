@@ -178,3 +178,12 @@ https://www.pexels.com/fr-fr/photo/gros-plan-de-rangee-325876/
 
 https://pexels.com/fr-fr/photo/a-l-interieur-bourse-brouiller-costumes-326876/
 ```
+
+TWIG PACK (package pour la gestion des pages d' erreurs)
+```markdown
+composer require symfony/twig-pack
+
+/templates/bundles/TwigBundle/Exception/error.html.twig
+
+symfony console cache:clear
+```
